@@ -1,16 +1,11 @@
 ---
-import { getAccessToken, decodeToken } from "../supabase/session";
-
 import Layout from "../layouts/Layout.astro";
-
-const decodedToken = decodeToken(getAccessToken(Astro.request));
-const email = decodedToken?.email;
 ---
 
 <Layout title="Substar">
   <main>
-    <h1>Welcome to <span class="text-gradient">Substar</span></h1>
-    <form action="/api/user/signin" method="POST">
+    <h1>Register <span class="text-gradient">Account</span></h1>
+    <form action="/api/user/signup" method="POST">
       <label>
         Email:
         <input type="email" name="email" required />
@@ -19,18 +14,9 @@ const email = decodedToken?.email;
         Password:
         <input type="password" name="password" required minlength="6" />
       </label>
-      <button>Submit</button>
+      <button>Register</button>
     </form>
-    <!-- {error && <p>{error.message}</p>} -->
-    <p>{email ? "Hello " + email : "Not logged in"}</p>
-    <p>{!email && <a href="/register">Register a new account.</a>}</p>
-    {
-      email && (
-        <form action="/api/user/signout" method="GET">
-          <button class="logout-button">Logout</button>
-        </form>
-      )
-    }
+    <p>Already have an account? <a href="/">Back to login</a></p>
   </main>
 
   <style>
@@ -61,10 +47,6 @@ const email = decodedToken?.email;
       font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 0.25rem;
-    }
-    .logout-button {
-      background: #f68265;
-      color: #fff;
     }
     button {
       display: block;
