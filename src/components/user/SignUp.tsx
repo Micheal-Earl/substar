@@ -32,6 +32,10 @@ const SignUp: Component = (props) => {
   async function handleSubmit(event: Event) {
     event.preventDefault();
 
+    // TODO: Users will still create an account even if the name is empty
+    // This is because we are calling supabaseAnon.auth.signUp() before
+    // we call fetch("/api/user/create", { ... })
+
     try {
       const { data, error } = await supabaseAnon.auth.signUp({
         email: email(),
