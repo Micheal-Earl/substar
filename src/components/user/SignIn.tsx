@@ -1,5 +1,5 @@
 import { Component, createSignal, onMount, Show, Suspense } from "solid-js";
-import supabase from "~/supabase/client";
+import supabaseAnon from "~/supabase/browser_client";
 import { useSession } from "~/hooks/useSession";
 import Signout from "./SignOut";
 import { useNavigate } from "solid-start";
@@ -29,7 +29,7 @@ const SignIn: Component = (props) => {
     event.preventDefault();
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabaseAnon.auth.signInWithPassword({
         email: email(),
         password: password(),
       });

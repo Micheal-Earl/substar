@@ -1,12 +1,12 @@
 import { Session } from "@supabase/supabase-js";
 import { createResource, ResourceReturn } from "solid-js";
-import supabase from "~/supabase/client";
+import supabaseAnon from "~/supabase/browser_client";
 
 const [session, { refetch }] = createResource(fetchSession);
 
 async function fetchSession() {
   try {
-    const { data, error } = await supabase.auth.getSession();
+    const { data, error } = await supabaseAnon.auth.getSession();
     if (error) throw error;
     if (data.session) return data.session;
     return null;

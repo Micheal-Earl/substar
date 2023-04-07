@@ -1,6 +1,6 @@
 import { Component } from "solid-js";
 import { useSession } from "~/hooks/useSession";
-import supabase from "~/supabase/client";
+import supabaseAnon from "~/supabase/browser_client";
 
 import "./Style.css";
 
@@ -10,7 +10,7 @@ const SignOut: Component = (props) => {
   const handleClick = async (event: Event) => {
     event.preventDefault();
     try {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await supabaseAnon.auth.signOut();
       if (error) throw error;
       refetchSession();
     } catch (error) {
