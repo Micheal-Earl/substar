@@ -1,11 +1,12 @@
 import { Component, createSignal, onMount, Show, Suspense } from "solid-js";
-import supabaseAnon from "~/supabase/browser_client";
+import supabaseAnon from "~/supabase/browserClient";
 import { useSession } from "~/hooks/useSession";
 import Signout from "./SignOut";
 
 import "./Style.css";
 
 const SignUp: Component = (props) => {
+  const [name, setName] = createSignal("");
   const [email, setEmail] = createSignal("");
   const [password, setPassword] = createSignal("");
   const [session, { refetch: refetchSession }] = useSession();
@@ -13,6 +14,12 @@ const SignUp: Component = (props) => {
   function handleEmailChange(event: Event) {
     if (event.target instanceof HTMLInputElement) {
       setEmail(event.target.value);
+    }
+  }
+
+  function handleNameChange(event: Event) {
+    if (event.target instanceof HTMLInputElement) {
+      setName(event.target.value);
     }
   }
 
@@ -26,11 +33,22 @@ const SignUp: Component = (props) => {
     event.preventDefault();
 
     try {
-      const { error } = await supabaseAnon.auth.signUp({
+      const { data, error } = await supabaseAnon.auth.signUp({
         email: email(),
         password: password(),
       });
       if (error) throw error;
+
+      await fetch("/api/user/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: data?.user?.id,
+          name: name(),
+        }),
+      });
 
       refetchSession();
     } catch (error) {
@@ -52,6 +70,15 @@ const SignUp: Component = (props) => {
         >
           <h1>Sign up</h1>
           <form onSubmit={handleSubmit}>
+            <label>
+              Username:
+              <input
+                type="text"
+                value={name()}
+                onChange={handleNameChange}
+              />
+            </label>
+            <br />
             <label>
               Email:
               <input

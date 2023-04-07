@@ -1,6 +1,6 @@
 import { Component } from "solid-js";
 import { useSession } from "~/hooks/useSession";
-import supabaseAnon from "~/supabase/browser_client";
+import supabaseAnon from "~/supabase/browserClient";
 
 import "./Style.css";
 

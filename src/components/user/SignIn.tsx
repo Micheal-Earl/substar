@@ -1,5 +1,5 @@
 import { Component, createSignal, onMount, Show, Suspense } from "solid-js";
-import supabaseAnon from "~/supabase/browser_client";
+import supabaseAnon from "~/supabase/browserClient";
 import { useSession } from "~/hooks/useSession";
 import Signout from "./SignOut";
 import { useNavigate } from "solid-start";

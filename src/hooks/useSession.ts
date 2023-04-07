@@ -1,6 +1,6 @@
 import { Session } from "@supabase/supabase-js";
 import { createResource, ResourceReturn } from "solid-js";
-import supabaseAnon from "~/supabase/browser_client";
+import supabaseAnon from "~/supabase/browserClient";
 
 const [session, { refetch }] = createResource(fetchSession);
 
