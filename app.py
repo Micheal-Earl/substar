@@ -1,13 +1,17 @@
-from fasthtml.common import fast_app, Div, P, serve
+from fasthtml.common import FastHTML, Div, P, serve
+from substar_supabase.client import create_supabase_client
 
-app, rt = fast_app()
+app: FastHTML = FastHTML()
 
-@rt('/')
-def get_home() -> Div:
+supabase_client = create_supabase_client()
+print(supabase_client.table("users").select("*").execute())
+
+@app.route('/', methods='get')
+def home() -> Div:
     return Div(P('Hello World!'), hx_get="/change")
 
-@rt('/change')
-def get_change() -> P:
+@app.route('/change', methods='get')
+def change() -> P:
     return P('Nice to be here!')
 
 serve()
