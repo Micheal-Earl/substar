@@ -1,0 +1,9 @@
+[project]
+name = "substar"
+version = "0.1.0"
+description = "A social media app"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "python-fasthtml>=0.4.5",
+]
