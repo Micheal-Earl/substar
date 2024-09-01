@@ -1,13 +1,13 @@
 from fasthtml.common import serve
 from app import app
-#from substar_supabase.client import create_supabase_client
+import logger
 import routes
+#import substar-supabase.client as client
 
-routes.build_routes()
-print("Routes built", app.routes)
+routes.build()
+logger.print_routes(app.routes)
 
-
-#supabase_client = create_supabase_client()
+#supabase_client = client.create()
 #print(supabase_client.table("users").select("*").execute())
 
 serve()
